@@ -1,3 +1,9 @@
+<?php
+
+include 'generatekey.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -70,13 +76,7 @@
 
         <script src="https://testflex.cybersource.com/cybersource/assets/microform/0.4.0/flex-microform.min.js"></script>
         <script>
-            var jwk = "{
-        "kty": "RSA",
-        "use": "enc",
-        "kid": "08BhdVkmZm7iKFNA5ivIM7I2Ptw6LBCv",
-        "n": "jeNHCoLMyVbxbQT3qCAJpbsI2D8CHXtQkuxPiRMZXi75jgoeRFOf1wIGy5GLhlGzaaDvk7NKc9WVwH9mGcm9QCKxyfHDwk8bCe_7pvH6Cq2ikomk4WAtLcnNqEyd4NU-1UL4JWwik7LJ2R1_O51V_3Hy5D2VLrDzTzdM_-n61Spd3RHoBNvV2DiZyqaxEkoYwE-glacWslCPnwjQXLGh04vIsLCTT4Xppf2E7uzx0Y9FRWQPsTdwp52j4TgnM9CEHcRKp9WoKNGVQVqVk-URtO3g3m3pjFqmNcwYVcP-UpLfAfnfFqT3oaKjZq09vFtjmub6MuEKrmEoOJji0mvCEw",
-        "e": "AQAB"
-    }";
+            var jwk = <?php $keyResponse ?>;
 
             var form = document.querySelector('#my-sample-form');
             var payButton = document.querySelector('#pay-button');
