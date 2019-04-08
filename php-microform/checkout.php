@@ -30,7 +30,7 @@ include 'generatekey.php';
         <div class="container card">
             <div class="card-body">
                 <h1>Checkout</h1>
-                <form action="receipt.jsp" id="my-sample-form" method="post">
+                <form action="receipt.php" id="my-sample-form" method="post">
                     <div class="form-group">
                         <label for="cardholderName">Name</label>
                         <input id="cardholderName" class="form-control" name="cardholderName" placeholder="Name on the card">
@@ -76,8 +76,10 @@ include 'generatekey.php';
 
         <script src="https://testflex.cybersource.com/cybersource/assets/microform/0.4.0/flex-microform.min.js"></script>
         <script>
-            var jwk = <?php $keyResponse ?>;
-
+            var jwk = <?php echo $jwkJSON; ?> ;
+            console.log('Key generated: '+jwk);
+            console.log('Key ID: '+jwk.kid);
+            var kId = jwk.kid;
             var form = document.querySelector('#my-sample-form');
             var payButton = document.querySelector('#pay-button');
             var flexResponse = document.querySelector('#flex-response');
@@ -87,7 +89,7 @@ include 'generatekey.php';
             // SETUP MICROFORM
             FLEX.microform(
                     {
-                        keyId: jwk.kid,
+                        keyId: kId,
                         keystore: jwk,
                         container: '#cardNumber-container',
                         label: '#cardNumber-label',
@@ -109,6 +111,7 @@ include 'generatekey.php';
                     function (setupError, microformInstance) {
                         if (setupError) {
                             // handle error
+                            alert(setupError);
                             return;
                         }
 

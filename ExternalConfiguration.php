@@ -1,10 +1,12 @@
 <?php
-
 /*
 * Purpose : passing Authentication config object to the configuration
 */
+namespace CyberSource;
 require_once __DIR__. DIRECTORY_SEPARATOR .'vendor/autoload.php';
-class configuration
+
+
+class ExternalConfiguration
 {
         //initialize variable on constructor
         function __construct()
@@ -12,15 +14,15 @@ class configuration
                 $this->authType = "http_signature";//http_signature/jwt
                 $this->enableLog = true;
                 $this->logSize = "1048576";
-                $this->logFile = "Log";
-                $this->logFilename = "Cybs.log";
+                $this->logFile = "log";
+                $this->logFilename = "cybs.log";
                 $this->merchantID = "testrest";
                 $this->apiKeyID = "08c94330-f618-42a3-b09d-e1e43be5efda";
                 $this->secretKey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE=";
                 $this->keyAlias = "testrest";
                 $this->keyPass = "testrest";
                 $this->keyFilename = "testrest";
-                $this->keyDirectory = "./";
+                $this->keyDirectory = "Resources/";
                 $this->runEnv = "cyberSource.environment.SANDBOX";
                 $this->merchantConfigObject();
         }
@@ -30,8 +32,9 @@ class configuration
                 $config = new \CyberSource\Authentication\Core\MerchantConfiguration();
                 if(is_bool($this->enableLog))
                       $confiData = $config->setDebug($this->enableLog);
+
                 $confiData = $config->setLogSize(trim($this->logSize));
-                $confiData = $config->setDebugFile(trim(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . $this->logFile));
+                $confiData = $config->setDebugFile(trim(__DIR__ . DIRECTORY_SEPARATOR . $this->logFile));
 				$confiData = $config->setLogFileName(trim($this->logFilename));
                 $confiData = $config->setauthenticationType(strtoupper(trim($this->authType)));
                 $confiData = $config->setMerchantID(trim($this->merchantID));
@@ -45,6 +48,7 @@ class configuration
                 $config->validateMerchantData($confiData);
                 return $config;
         }
+
         function ConnectionHost()
         {
                 $merchantConfig = $this->merchantConfigObject();
@@ -54,6 +58,19 @@ class configuration
                 $config = $config->setDebugFile($merchantConfig->getDebugFile() . DIRECTORY_SEPARATOR . $merchantConfig->getLogFileName());
                 return $config;
         }
+
+        function FutureDate($format){
+                if($format){
+                        $rdate = date("Y-m-d",strtotime("+7 days"));
+                        $retDate = date($format,strtotime($rdate));
+                }
+                else{
+                        $retDate = date("Y-m",strtotime("+7 days"));
+                }
+                echo $retDate;
+                return $retDate;
+        }
+
         function CallTestLogging($testId, $apiName, $responseMessage){
                 $runtime = date('d-m-Y H:i:s');
                 $file = fopen("./CSV_Files/TestReport/TestResults.csv", "a+");
@@ -61,5 +78,13 @@ class configuration
                 fclose($file);
         }
 
+        function downloadReport($downloadData, $fileName){
+                $filePathName = __DIR__. DIRECTORY_SEPARATOR .$fileName;
+                $file = fopen($filePathName, "w");
+                fwrite($file, $downloadData);
+                fclose($file);
+                return __DIR__.'\\'.$fileName;
+        }
 }
+
 ?>
