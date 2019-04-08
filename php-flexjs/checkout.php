@@ -1,3 +1,9 @@
+<?php
+
+include 'generatekey.php';
+
+?>
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
@@ -16,7 +22,7 @@
                     <span class="glyphicon glyphicon-lock"></span> Payment Form
                 </div>
                 <div class="panel-body">
-                    <form accept-charset="UTF-8" action="receipt.jsp" autocomplete="off" method="post" novalidate="novalidate" id="payment-form">
+                    <form accept-charset="UTF-8" action="receipt.php" autocomplete="off" method="post" novalidate="novalidate" id="payment-form">
                         <div class="form-group">
                             <label for="cardType">Card Type</label>
                             <select class="form-control" id="cardType" name="cardType">
@@ -54,7 +60,6 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <select class="form-control" name="expiryYear" id="expiryYear">
-                                        <option>2019</option>
                                         <option>2020</option>
                                         <option>2021</option>
                                         <option>2022</option>
@@ -68,7 +73,7 @@
                         </div>
 
                         <!--HIDDEN INPUT FOR TOKENISED RESPONSE-->
-                        <input type="hidden" id="flex-response" name="flex-response">
+                        <input type="hidden" id="flexresponse" name="flexresponse">
 
                         <!-- Button to attach our tokenise handler to. Note that it is NOT a submission input or button -->
                         <button type="button" id="pay-btn" class="btn btn-lg btn-block btn-primary">Pay Now</button>
@@ -82,18 +87,13 @@
         <script>
             console.log(window.FLEX.version);
 
-            var jwk = 
-            "{
-        "kty": "RSA",
-        "use": "enc",
-        "kid": "08BhdVkmZm7iKFNA5ivIM7I2Ptw6LBCv",
-        "n": "jeNHCoLMyVbxbQT3qCAJpbsI2D8CHXtQkuxPiRMZXi75jgoeRFOf1wIGy5GLhlGzaaDvk7NKc9WVwH9mGcm9QCKxyfHDwk8bCe_7pvH6Cq2ikomk4WAtLcnNqEyd4NU-1UL4JWwik7LJ2R1_O51V_3Hy5D2VLrDzTzdM_-n61Spd3RHoBNvV2DiZyqaxEkoYwE-glacWslCPnwjQXLGh04vIsLCTT4Xppf2E7uzx0Y9FRWQPsTdwp52j4TgnM9CEHcRKp9WoKNGVQVqVk-URtO3g3m3pjFqmNcwYVcP-UpLfAfnfFqT3oaKjZq09vFtjmub6MuEKrmEoOJji0mvCEw",
-        "e": "AQAB"
-    }
-            "
+            var jwk = <?php echo $jwkJSON; ?> ;
+            console.log('Key generated: '+jwk);
+            console.log('Key ID: '+jwk.kid);
+            console.log(JSON.stringify(jwk));
 
             var payButton = document.querySelector('#pay-btn');
-            var flexResponse = document.querySelector('#flex-response');
+            var flexResponse = document.querySelector('#flexresponse');
 
 
             var responseHandler = function (response) {
