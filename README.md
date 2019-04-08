@@ -5,10 +5,10 @@ This repository provides simple examples demonstrating usage of the CyberSource 
 ## Usage
 
 1. Clone or download this repository.
-2. cd into either the microform or flexjs directory
-3. Update index.php with your [CyberSource sandbox credentials](https://ebc2test.cybersource.com). 
-5. Run ```php -S localhost:8000``` to run the built-in PHP web server
-6. Browse to http://localhost:8000/checkout.php in your browser
+2. Update ExternalConfiguration.php with your [CyberSource sandbox credentials](https://ebc2test.cybersource.com). 
+3. Run ```composer update``` to pull down dependencies such as the CyberSource REST Client for PHP
+4. Run ```php -S localhost:8000 -t php-microform``` (or -t php-flexjs)to run the built-in PHP web server
+5. Browse to http://localhost:8000/checkout.php in your browser
 
 ## Requirements
 * PHP 5.4 or later
@@ -40,3 +40,35 @@ This sample demonstrates how your checkout form can remain exactly as it is toda
 
 This sample demonstrates how you can replace the sensitive data fields (credit card number) on your checkout form with a field (Flex Microform) hosted entirely on CyberSource servers. This field will accept and tokenize the customer's credit card information directly from their browser on a resource hosted by CyberSource, replacing that data with a secure PCI-compliant token. This can then be sent to your server along with the other non-PCI order data.  This can help achieve PCI-DSS SAQ A level compliance for your application as even your client-side code does not contain a mechanism to handle the credit card information.
 
+## Using the Flex Payment Token
+
+You can use the token generated to make a payment with the CyberSource REST API (https://developer.cybersource.com/api/reference/api-reference.html).  
+
+Place the token in the CustomerId field:
+
+```json
+{
+  "clientReferenceInformation": {
+    "code": "TC50171_3"
+  },
+  "processingInformation": {
+    "commerceIndicator": "internet"
+  },
+  "paymentInformation": {
+    "customer": {
+      "customerId": "7500BB199B4270EFE05340588D0AFCAD"
+    }
+  },
+  "orderInformation": {
+    "amountDetails": {
+      "totalAmount": "22",
+      "currency": "USD"
+    },
+    "billTo": {
+      "firstName": "John",
+      "lastName": "Doe"
+    }
+  }
+}
+
+```
