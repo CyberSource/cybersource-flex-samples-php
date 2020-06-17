@@ -1,3 +1,11 @@
+<?php
+
+$transientToken = json_decode($_POST["flexresponse"], true);;
+include 'paymentWithFlexTransientToken.php';
+
+?>
+
+
 <html lang="en">
     <head>
         <title>Receipt</title>
@@ -12,7 +20,7 @@
             }
         </style>
     </head>
-    <?php $arrDump = json_decode($_POST["flex-response"], true); ?>
+    
     <body>
         <div class="container card">
             <div class="card-body">
@@ -23,26 +31,17 @@
                             <th scope="col">Key</th>
                             <th scope="col">value</th>
                         </tr>
-                        <tr>
-                            <th scope="col">token</th>
-                            <th scope="col"><?php echo $arrDump['token']; ?></th>
-                        </tr>
-                        <tr>
-                            <th scope="col">Masked PAN</th>
-                            <th scope="col"><?php echo $arrDump['maskedPan']; ?></th>
-                        </tr>
                     </thead>
                     <tbody>
-                        FLEX TOKEN : 
                         <tr scope="row">
-                            <td>Signature validation</td>
+                            <td>PaymentResponse</td>
                             <td>
-                                <?php echo $arrDump['signature']; ?>
+                            <?php echo $apiResponse[0]; ?>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <a href="/checkout.php" class="btn btn-primary">Repeat checkout process</a>
+                <a href="checkout.php" class="btn btn-primary">Repeat checkout process</a>
             </div>
         </div>
     </body>
