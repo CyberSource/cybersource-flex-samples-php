@@ -32,16 +32,17 @@ The token can be used in lieu of actual card data in server-side requests for ot
 
 ## Samples
 
-### JavaScript (Flex API) Sample
+### JavaScript (Flex API) Sample (API Version 0.4)
 
 This sample demonstrates how your checkout form can remain exactly as it is today, with the only addition of a JavaScript call to tokenize the customer's credit card information. This happens directly between their browser and CyberSource, replacing the provided data with a secure PCI-compliant token. This can then be sent to your server along with the other non-PCI order data.  This can help achieve PCI-DSS SAQ A-EP level compliance for your application.  
 
-### Microform Sample
+### Microform Sample (Microform Version 0.11)
 
 This sample demonstrates how you can replace the sensitive data fields (credit card number) on your checkout form with a field (Flex Microform) hosted entirely on CyberSource servers. This field will accept and tokenize the customer's credit card information directly from their browser on a resource hosted by CyberSource, replacing that data with a secure PCI-compliant token. This can then be sent to your server along with the other non-PCI order data.  This can help achieve PCI-DSS SAQ A level compliance for your application as even your client-side code does not contain a mechanism to handle the credit card information.
 
 ## Using the Flex Payment Token
 
+### Payment Processing Using (API Version 0.4)
 You can use the token generated to make a payment with the CyberSource REST API (https://developer.cybersource.com/api/reference/api-reference.html).  
 
 Place the token in the CustomerId field:
@@ -72,3 +73,32 @@ Place the token in the CustomerId field:
 }
 
 ```
+
+### Payment Processing Using (Microform Version 0.11)
+You can use the transient token generated to make a payment with the CyberSource REST API (https://developer.cybersource.com/api/reference/api-reference.html).  
+
+Place the token in the transienTokenJWK field:
+
+```json
+{
+  "clientReferenceInformation": {
+    "code": "TC50171_3"
+  },
+  "processingInformation": {
+    "commerceIndicator": "internet"
+  },
+	
+"tokenInformation": {
+"transientTokenJwt": "eyJraWQiOiIwNzRsM3p5M2xCRWN5d1gxcnhXNFFoUmJFNXJLN1NmQiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjp7ImV4cGlyYXRpb25ZZWFyIjoiMjAyMSIsIm51bWJlciI6IjQxMTExMVhYWFhYWDExMTEiLCJleHBpcmF0aW9uTW9udGgiOiIwNSIsInR5cGUiOiIwMDEifSwiaXNzIjoiRmxleC8wOCIsImV4cCI6MTU4ODcwMjkxNSwidHlwZSI6Im1mLTAuMTEuMCIsImlhdCI6MTU4ODcwMjAxNSwianRpIjoiMUU0Q0NMSUw4NFFXM1RPSTFBM0pUU1RGMTZGQUNVNkUwNU9VRVNGWlRQNUhIVkJDWTQwUTVFQjFBRUMzNDZBMCJ9.FB3b2r8mjtvqo3_k05sRIPGmCZ_5dRSZp8AIJ4u7NKb8E0-6ZOHDwEpxtOMFzfozwXMTJ3C6yBK9vFIPTIG6kydcrWNheE2Pfort8KbxyUxG-PYONY-xFnRDF841EFhCMC4nRFvXEIvlcLnSK6opUUe7myKPjpZI1ijWpF0N-DzZiVT8JX-9ZIarJq2OI0S61Y3912xLJUKi5c2VpRPQOS54hRr5GHdGJ2fV8JZ1gTuup_qLyyK7uE1VxI0aucsyH7yeF5vTdjgSd76ZJ1OUFi-3Ij5kSLsiX4j-D0T8ENT1DbB_hPTaK9o6qqtGJs7QEeW8abtnKFsTwVGrT32G2w"
+},
+  "orderInformation": {
+    "amountDetails": {
+      "totalAmount": "22",
+      "currency": "USD"
+    },
+    "billTo": {
+      "firstName": "John",
+      "lastName": "Doe"
+    }
+  }
+}

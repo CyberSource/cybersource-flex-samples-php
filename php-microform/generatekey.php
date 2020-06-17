@@ -15,21 +15,18 @@
 	];
 	
 	$keyResponse = list($response, $statusCode, $httpHeader)=null;
-	$jwkJSON = '{}';
+	$captureContext = '';
 
 	try {
-		$keyResponse = $api_instance->generatePublicKey($flexRequestArr);
-		
-		$jwkArray = $keyResponse[0]["jwk"];
-		// print_r($jwkArray);
+		// Generating Flex .11 capture context 
+		$keyResponse = $api_instance->generatePublicKey($flexRequestArr, $format = 'JWT');
+		//print_r($keyResponse);
 
-        // NOTE json_encode is not working because the array is protected
-		$jwk = json_encode($jwkArray,JSON_FORCE_OBJECT);
-        // print_r($jwk);
+		//Extracting Capture context from KeyID in response
+		$captureContext = $keyResponse[0]["keyId"];
+		//print_r($captureContext);
 
-		// SO that's why we're string handling the JSON object
-        $jwkJSON = '{"kty":"'.$jwkArray['kty'].'","kid":"'.$jwkArray['kid'].'","use":"'.$jwkArray['use'].'","n":"'.$jwkArray['n'].'","e":"'.$jwkArray['e'].'"}';
-        // print_r($jwkJSON);
+
 
 	} catch (Cybersource\ApiException $e) {
 		print_r($e->getResponseBody());
