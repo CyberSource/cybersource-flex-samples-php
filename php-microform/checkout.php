@@ -117,8 +117,8 @@ include 'generatekey.php';
 
             payButton.addEventListener('click', function() {  
               var options = {    
-                cardExpirationMonth: expMonth.value,  
-                cardExpirationYear: expYear.value 
+                expirationMonth: expMonth.value,  
+                expirationYear: expYear.value 
               };
 
               microform.createToken(options, function (err, token) {
