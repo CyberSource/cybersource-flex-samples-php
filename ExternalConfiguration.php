@@ -14,7 +14,7 @@ class ExternalConfiguration
                 $this->authType = "http_signature";//http_signature/jwt
                 $this->enableLog = true;
                 $this->logSize = "1048576";
-                $this->logFile = "log";
+                $this->logFile = "Log";
                 $this->logFilename = "cybs.log";
                 $this->merchantID = "testrest";
                 $this->apiKeyID = "08c94330-f618-42a3-b09d-e1e43be5efda";
@@ -23,7 +23,7 @@ class ExternalConfiguration
                 $this->keyPass = "testrest";
                 $this->keyFilename = "testrest";
                 $this->keyDirectory = "Resources/";
-                $this->runEnv = "cyberSource.environment.SANDBOX";
+                $this->runEnv = "apitest.cybersource.com";
                 $this->merchantConfigObject();
         }
         //creating merchant config object

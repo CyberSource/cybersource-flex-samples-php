@@ -3,8 +3,7 @@
     require_once __DIR__. DIRECTORY_SEPARATOR .'../vendor/autoload.php';
     require_once __DIR__. DIRECTORY_SEPARATOR .'../ExternalConfiguration.php';
 
-
-    $commonElement = new CyberSource\ExternalConfiguration();
+	$commonElement = new CyberSource\ExternalConfiguration();
 	$config = $commonElement->ConnectionHost();
 	$merchantConfig = $commonElement->merchantConfigObject();
 	$apiclient = new CyberSource\ApiClient($config, $merchantConfig);
@@ -19,7 +18,7 @@
 
 	try {
 		// Generating Flex .11 capture context 
-		$keyResponse = $api_instance->generatePublicKey($flexRequestArr, $format = 'JWT');
+		$keyResponse = $api_instance->generatePublicKey($format = 'JWT', $flexRequestArr);
 		//print_r($keyResponse);
 
 		//Extracting Capture context from KeyID in response

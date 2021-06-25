@@ -3,8 +3,7 @@
     require_once __DIR__. DIRECTORY_SEPARATOR .'../vendor/autoload.php';
     require_once __DIR__. DIRECTORY_SEPARATOR .'../ExternalConfiguration.php';
 
-
-    $commonElement = new CyberSource\ExternalConfiguration();
+	$commonElement = new CyberSource\ExternalConfiguration();
 	$config = $commonElement->ConnectionHost();
 	$merchantConfig = $commonElement->merchantConfigObject();
 	$apiclient = new CyberSource\ApiClient($config, $merchantConfig);
@@ -18,7 +17,7 @@
 	$jwkJSON = '{}';
 
 	try {
-		$keyResponse = $api_instance->generatePublicKey($flexRequestArr);
+		$keyResponse = $api_instance->generatePublicKey($format = 'legacy', $flexRequestArr);
 		
 		$jwkArray = $keyResponse[0]["jwk"];
 		// print_r($jwkArray);
