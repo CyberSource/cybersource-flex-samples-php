@@ -8,17 +8,17 @@
 	$merchantConfig = $commonElement->merchantConfigObject();
 	$apiclient = new CyberSource\ApiClient($config, $merchantConfig);
 	$api_instance = new CyberSource\Api\KeyGenerationApi($apiclient);
-	$flexRequestArr = [
-	"encryptionType" => "RsaOaep256",
-	"targetOrigin" => "http://localhost:8000",
-	];
+	$flexRequest = new GeneratePublicKeyRequest([
+		"encryptionType" => "RsaOaep256",
+		"targetOrigin" => "http://localhost:8000",
+	]);	
 	
 	$keyResponse = list($response, $statusCode, $httpHeader)=null;
 	$captureContext = '';
 
 	try {
 		// Generating Flex .11 capture context 
-		$keyResponse = $api_instance->generatePublicKey($format = 'JWT', $flexRequestArr);
+		$keyResponse = $api_instance->generatePublicKey($format = 'JWT', $flexRequest);
 		//print_r($keyResponse);
 
 		//Extracting Capture context from KeyID in response
