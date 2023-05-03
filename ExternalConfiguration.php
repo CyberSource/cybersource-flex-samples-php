@@ -16,12 +16,12 @@ class ExternalConfiguration
                 $this->logSize = "1048576";
                 $this->logFile = "Log";
                 $this->logFilename = "cybs.log";
-                $this->merchantID = "testrest";
-                $this->apiKeyID = "08c94330-f618-42a3-b09d-e1e43be5efda";
-                $this->secretKey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE=";
-                $this->keyAlias = "testrest";
-                $this->keyPass = "testrest";
-                $this->keyFilename = "testrest";
+                $this->merchantID = "rkings_ecom2_sit";
+                $this->apiKeyID = "98ceb103-6f5e-4886-997d-f847a0ea34dd";
+                $this->secretKey = "G/pB1u/ojjb3TbSSxqNs5jbgyiP5qL2vPsK2EiY4B8k=";
+                $this->keyAlias = "rkings_ecom2_sit";
+                $this->keyPass = "rkings_ecom2_sit";
+                $this->keyFilename = "rkings_ecom2_sit";
                 $this->keyDirectory = "Resources/";
                 $this->runEnv = "apitest.cybersource.com";
                 $this->merchantConfigObject();

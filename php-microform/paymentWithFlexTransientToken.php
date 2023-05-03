@@ -12,14 +12,14 @@ $transientTokenJWK = $transientToken;
 	$clientReferenceInformation = new CyberSource\Model\Ptsv2paymentsClientReferenceInformation($clientReferenceInformationArr);
 
 	$orderInformationAmountDetailsArr = [
-			"totalAmount" => "102.21",
-			"currency" => "USD"
+			"totalAmount" => "0.10",
+			"currency" => "GBP"
 	];
 	$orderInformationAmountDetails = new CyberSource\Model\Ptsv2paymentsOrderInformationAmountDetails($orderInformationAmountDetailsArr);
 
 	$orderInformationBillToArr = [
-			"firstName" => "RTS",
-			"lastName" => "VDP",
+			"firstName" => "Robert",
+			"lastName" => "Annett",
 			"address1" => "201 S. Division St.",
 			"locality" => "Ann Arbor",
 			"administrativeArea" => "MI",
@@ -27,7 +27,7 @@ $transientTokenJWK = $transientToken;
 			"country" => "US",
 			"district" => "MI",
 			"buildingNumber" => "123",
-			"email" => "test@cybs.com",
+			"email" => "robert@ay.studio",
 			"phoneNumber" => "999999999"
 	];
 	$orderInformationBillTo = new CyberSource\Model\Ptsv2paymentsOrderInformationBillTo($orderInformationBillToArr);

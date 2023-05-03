@@ -1,20 +1,22 @@
-[2020-07-21 05:33:11] [CyberSource\Authentication\Core\MerchantConfiguration] [INFO] Log Directory is Invalid, Default taking: Log
+[2023-05-03 14:48:12] [CyberSource\Authentication\Core\MerchantConfiguration] [INFO] Log Directory is Invalid, Default taking: Log
 [DEBUG] HTTP Request body  ~BEGIN~
 {"encryptionType":"RsaOaep256","targetOrigin":"http:\/\/localhost:8000"}
 ~END~
 *   Trying 66.185.182.49:443...
+* TCP_NODELAY set
 * Connected to apitest.cybersource.com (66.185.182.49) port 443 (#0)
 * ALPN, offering h2
 * ALPN, offering http/1.1
+* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
 * successfully set certificate verify locations:
-*   CAfile: C:\Users\BD_Ca\OneDrive\Documents\GitHub\cybersource-flex-samples-php\vendor\cybersource\rest-client-php\lib\ssl/cacert.pem
+*   CAfile: /Users/robertannett/dev/websites/cybersource-flex-samples-php/vendor/cybersource/rest-client-php/lib/ssl/cacert.pem
   CApath: none
-* SSL connection using TLSv1.2 / AES256-GCM-SHA384
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
 * ALPN, server did not agree to a protocol
 * Server certificate:
 *  subject: C=US; ST=California; L=Foster City; jurisdictionC=US; jurisdictionST=Delaware; O=Cybersource Corporation; businessCategory=Private Organization; serialNumber=2838921; CN=apitest.cybersource.com
-*  start date: Jan 18 20:14:02 2019 GMT
-*  expire date: Feb 15 20:44:00 2021 GMT
+*  start date: Jan 17 15:57:47 2023 GMT
+*  expire date: Feb 15 15:57:47 2024 GMT
 *  subjectAltName: host "apitest.cybersource.com" matched cert's "apitest.cybersource.com"
 *  issuer: C=US; O=Entrust, Inc.; OU=See www.entrust.net/legal-terms; OU=(c) 2014 Entrust, Inc. - for authorized use only; CN=Entrust Certification Authority - L1M
 *  SSL certificate verify ok.
@@ -23,31 +25,29 @@ Host:apitest.cybersource.com
 User-Agent: Swagger-Codegen/1.0.0/php
 Accept: application/json
 Content-Type: application/json
-v-c-merchant-id:testrest
-Signature:keyid="08c94330-f618-42a3-b09d-e1e43be5efda", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="RpenbGTyZehleS6qtOpy6nWR9VvUPetUO9b5fsFhnM8="
-Date:Tue, 21 Jul 2020 5:33:11 GMT
-v-c-client-id:cybs-rest-sdk-php-0.0.14
+v-c-merchant-id:rkings_ecom2_sit
+Signature:keyid="98ceb103-6f5e-4886-997d-f847a0ea34dd", algorithm="HmacSHA256", headers="host date (request-target) digest v-c-merchant-id", signature="cWlGXe8a66HddYMlvaav9exuddoOz6taZmvVNYB8cl8="
+Date:Wed, 03 May 2023 14:48:12 GMT
 Digest: SHA-256=vMFBTLNPQWqc2Ca7BGEHwc3cMXayNxwLu8LrQ7R4xGo=
 Content-Length: 72
 
 * upload completely sent off: 72 out of 72 bytes
 * Mark bundle as not supporting multiuse
-< HTTP/1.1 200 OK
-< X-Application-Context: application:8443
-< Strict-Transport-Security: max-age=63072000
+< HTTP/1.1 200 
+< X-OPNET-Transaction-Trace: a2_171bee7e-224f-4e63-9a1e-64e7a466025e
+< Strict-Transport-Security: max-age=31536000
 < Cache-Control: no-cache, no-store, must-revalidate
 < Pragma: no-cache
 < Expires: -1
 < X-Download-Options: noopen
-< Digest: SHA-256=GH9Vx3xPbIR92ItQ0wax+7rUZD5SHAMxRBIvHAtT7D8=
+< Digest: SHA-256=LrigUSfcm/SjWbRWl4vSwf71Gucp2Z6YQI0HfyDwFK4=
 < Content-Type: application/json;charset=UTF-8
 < Content-Length: 1553
-< Date: Tue, 21 Jul 2020 05:33:09 GMT
-< Server: secretServer
-< X-Cnection: close
-< v-c-correlation-id: 77b2653d-e516-40ab-adaf-b0de839acf38
+< Date: Wed, 03 May 2023 13:48:17 GMT
+< Connection: keep-alive
+< v-c-correlation-id: f085d510-2dda-465a-b50d-50dcb1b277ea
 < 
 * Connection #0 to host apitest.cybersource.com left intact
 [DEBUG] HTTP Response body ~BEGIN~
-{"keyId":"eyJraWQiOiIzZyIsImFsZyI6IlJTMjU2In0.eyJmbHgiOnsicGF0aCI6Ii9mbGV4L3YyL3Rva2VucyIsImRhdGEiOiJYaEM5eVJHVGU1ZENlM0lpNGIxblVCQUFFRjZSTVQycXh6d1Q5MG40Mm8rKy9jN05zRHBDK08yL2VCK2QvclJFQnZ5cHEvVlNOaHhqQ2hmOHJHZE81V0ZnMG9TWGRJT1ZBQ05TU2ZmUlpmUU0rUWMxVks2ODlLcVdNZXJ1aUw0WWoyZVQiLCJvcmlnaW4iOiJodHRwczovL3Rlc3RmbGV4LmN5YmVyc291cmNlLmNvbSIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsInVzZSI6ImVuYyIsIm4iOiJvNjg1b1QyU2pGd2lHN3lqYW1DcTZhSU1nQmVzN2h6WWhEcEF4WUNiZFplWUdmOTVEeFNxV3R5OXlKMXVuZ2d5czBUTVdvMEFYN2VqUVd6VDdUdEhQMDBfRzRTZExleklkSTFZbDdlMENZLVVkOXMyWE9aTk5GZzlhb0pndmpfVzdvanpYblZUU3hIRFV1LW1ZVXFYQTE5ckRHcGVCbDJsbk9TYnJQaTFIV2ZHMmVKZFlTTkZwN0ZHSHFUTnZtMUgtb3pvcVYtb09VZ3pSWnkzOGFxM3dXcnBWTGlxMDNmRThmazRweUdwNDF5UmFTdEdFcUI0VDgxRWVna1FwU2o4M3owZkdpODRmQlJ3SXRuMEFWWDd3VW43ZkR1VTAwblhaT2lfZmEtQllfVkxsdFVPb0o0bDBQMGg5VjRtR1Foc1RVbGZsdTRIQTNPaEZXeUpqMHVVOFEiLCJraWQiOiIwODFUekVlak1MdjRpWUxVdFZ2RUNzcmh4QUlCa3RxayJ9fSwiY3R4IjpbeyJkYXRhIjp7InRhcmdldE9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sIm1mT3JpZ2luIjoiaHR0cHM6Ly90ZXN0ZmxleC5jeWJlcnNvdXJjZS5jb20ifSwidHlwZSI6Im1mLTAuMTEuMCJ9XSwiaXNzIjoiRmxleCBBUEkiLCJleHAiOjE1OTUzMTA0OTAsImlhdCI6MTU5NTMwOTU5MCwianRpIjoiUVlub0NLYlBLcWdsMnNjVCJ9.e32xZUn1JNXuYizeG0Gfw-coMvAAIA9bq3BaQ1TXDSiEkWKyD5bQNZZD287pr-slM8RR8_0o0EC0uzOgs6an9z8TXZTUfiXgHYMWMcMLVpExf6VQQiM3E4FbU2IXCHdn3Bkr8UEKtYWxOkyrahOrNWscLuvf0BnzDdN8NNRb9xOBdlA7ni46Tu8yhjfh_3DRfgVXhanuHJND3Ch-9jkcMSJGywfb0oiLA-wxT4A7BJfo92SQrUw7SaIY5lWY921sz5B3JaEUtcEuTsOVmLvJuf3gGnHufhZ69W1ulAzFArkpwNEHcBZdpS4Dg2-BEveHxoOR7KDVVWeFSGJChFcfdQ","der":null,"jwk":null}
+{"keyId":"eyJraWQiOiJ6dSIsImFsZyI6IlJTMjU2In0.eyJmbHgiOnsicGF0aCI6Ii9mbGV4L3YyL3Rva2VucyIsImRhdGEiOiJndHlNWTFsS0tDMzhQcEVxcCt2aGJSQUFFSVhnUVRIUE1KSDRMSndUVjVHdEJKSWV1TnFETE05endrblJRa0toa3hjcGEzb01mVTF5clVhL3pvMEVLOHZzMGhzZ3hMZ3FEMzZZNGhtS3dZcmVWU3JqRHBpelkwcHlIaUFjMFBlQjNnbEUiLCJvcmlnaW4iOiJodHRwczovL3Rlc3RmbGV4LmN5YmVyc291cmNlLmNvbSIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsInVzZSI6ImVuYyIsIm4iOiJxZFROdmU2N1dZTnE5dGZYVXdTUlNTSnYzYlJ2Y1BOYmYxa2VISEhmeEhCemZjdnRVT05aRTcxNmx5dDdWMVotNnFPUWhId214Z3dxa0U0aDhReGY5S0JqTUx1WklESVFUUlVfUGdmVy1EQ3prcDJKTkxHRFpBRElHYlIxVGw4bDJPdnp3cXU1ZUFxM0ZxSFlZY3h3cXl6aXdTeUtxM2hMV2IwV19saFcyVzFsY2hXNUVzUi01WWpMdnc0UXlKZEUyN0UwY2pBS01YdmwzS0VWM0N5WF9NdWxoR0t1MFJJQThoX3V4UUFnbnNEN3d5MEhHRVA4RXRMSHhjUjFnc3VNa2JreFNuMGtzT19xRmhNUTR4NTFXdVE4V0pOYkotTi10MjFSUktXYVdCNC1xNlFjRzNBUjZ0UzhaUjJPSFpDZkdqUzlTZFZPN3VObWtYVGhEVjhaanciLCJraWQiOiIwOE9ZUzVqWUNac25CV3hmRkJsSXg0cDZrVjVGelJsQSJ9fSwiY3R4IjpbeyJkYXRhIjp7InRhcmdldE9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDAwIl0sIm1mT3JpZ2luIjoiaHR0cHM6Ly90ZXN0ZmxleC5jeWJlcnNvdXJjZS5jb20ifSwidHlwZSI6Im1mLTAuMTEuMCJ9XSwiaXNzIjoiRmxleCBBUEkiLCJleHAiOjE2ODMxMjI1OTcsImlhdCI6MTY4MzEyMTY5NywianRpIjoiSlZrb3lGSm5KZzYzY1VFMCJ9.B2kE9hPzeVifTSOeELf8HlhiZtiB75UeQNhY33yUkfoKPguVp8n7wMR8TCI76MPbrPbGNuijs3BetLezVM7YY6AatQs6-WnoF-TAj2d7maPR4E7F9B6h9iDfSZZ1QwfCmOLSVjm_IJRhsYcBkpWLy4uHO_0zZDWPmsd_QjicRMjwXRzKvLkq9U2p9b3O67HaJshfbzdkNRD95CfEkPy3y_kdueTpNrU8LMATKr0I7k8dHJ3kh7p8qRBJ5dVDoDyk3rvyloFtnOa22pl8Ps6S5djpuxvvJ59hxQmoDLtt9QOOWdZy2-9F0wXB8rhWGTwQ4clDQtwXfsf4kx7N3JXo9A","der":null,"jwk":null}
 ~END~
