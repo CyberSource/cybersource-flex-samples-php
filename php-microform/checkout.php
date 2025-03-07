@@ -1,5 +1,5 @@
 <?php
-
+//header("Content-Security-Policy: script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script';");
 include 'generatekey.php';
 
 ?>
@@ -62,9 +62,9 @@ include 'generatekey.php';
                         <div class="form-group col-md-6">
                             <label for="expYear">Expiry year</label>
                             <select id="expYear" class="form-control">
-                                <option>2021</option>
-                                <option>2022</option>
-                                <option>2023</option>
+                                <option>2025</option>
+                                <option>2026</option>
+                                <option>2027</option>
                             </select>
                         </div>
                     </div>
@@ -75,9 +75,6 @@ include 'generatekey.php';
             </div>
         </div>
 
-    <script src="https://flex.cybersource.com/cybersource/assets/microform/0.11/flex-microform.min.js"></script>
-    
-            
   <script>
             // JWK is set up on the server side route for /
 
@@ -89,9 +86,26 @@ include 'generatekey.php';
             var errorsOutput = document.querySelector('#errors-output');
           
             // the capture context that was requested server-side for this transaction
-            var captureContext = '<?php echo $captureContext; ?>'  ;
+            var captureContext = '<?php echo $captureContext; ?>' ;
+            var clientLibrary = '<?php echo $clientLibrary; ?>' ;
+            var clientLibraryIntegrity = '<?php echo $clientLibraryIntegrity; ?>' ;
             console.log(captureContext);
 
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.onload = function() {
+              // Invoke the Flex SDK once the scripts are loaded asynchronously
+              flexSetup();
+            }
+            //url extracted from the JWT
+            script.src = clientLibrary;
+            //integrity extracted from the JWT
+            if (clientLibraryIntegrity) {
+              script.integrity = clientLibraryIntegrity;
+              script.crossOrigin = "anonymous";
+            }
+            document.head.appendChild(script);
             // custom styles that will be applied to each field we create using Microform
             var myStyles = {  
               'input': {    
@@ -105,36 +119,37 @@ include 'generatekey.php';
               'invalid': { 'color': '#a94442' }
             };
 
-            // setup
-            var flex = new Flex(captureContext);
-            var microform = flex.microform({ styles: myStyles });
-            var number = microform.createField('number', { placeholder: 'Enter card number' });
-            var securityCode = microform.createField('securityCode', { placeholder: '•••' });
+            function flexSetup() {
+              // setup
+              var flex = new Flex(captureContext);
+              var microform = flex.microform({ styles: myStyles });
+              var number = microform.createField('number', { placeholder: 'Enter card number' });
+              var securityCode = microform.createField('securityCode', { placeholder: '•••' });
 
-            number.load('#number-container');
-            securityCode.load('#securityCode-container');
+              number.load('#number-container');
+              securityCode.load('#securityCode-container');
 
+              payButton.addEventListener('click', function() {  
+                var options = {    
+                  expirationMonth: expMonth.value,  
+                  expirationYear: expYear.value 
+                };
 
-            payButton.addEventListener('click', function() {  
-              var options = {    
-                expirationMonth: expMonth.value,  
-                expirationYear: expYear.value 
-              };
-
-              microform.createToken(options, function (err, token) {
-                if (err) {
-                  // handle error
-                  console.error(err);
-                  errorsOutput.textContent = err.message;
-                } else {
-                  // At this point you may pass the token back to your server as you wish.
-                  // In this example we append a hidden input to the form and submit it.      
-                  console.log(JSON.stringify(token));
-                  flexResponse.value = JSON.stringify(token);
-                  form.submit();
-                }
-              });
-            });
+                microform.createToken(options, function (err, token) {
+                  if (err) {
+                    // handle error
+                    console.error(err);
+                    errorsOutput.textContent = err.message;
+                  } else {
+                    // At this point you may pass the token back to your server as you wish.
+                    // In this example we append a hidden input to the form and submit it.      
+                    console.log(JSON.stringify(token));
+                    flexResponse.value = JSON.stringify(token);
+                    form.submit();
+                  }
+                });
+              }); 
+            }
         </script>
     </body>
 </html>
