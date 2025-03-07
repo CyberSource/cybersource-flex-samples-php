@@ -3,34 +3,34 @@
     require_once __DIR__. DIRECTORY_SEPARATOR .'../vendor/autoload.php';
     require_once __DIR__. DIRECTORY_SEPARATOR .'../ExternalConfiguration.php';
 
+    $allowedCardNetworks = ["VISA", "MASTERCARD", "AMEX", "CARNET", "CARTESBANCAIRES", "CUP", "DINERSCLUB", "DISCOVER", "EFTPOS", "ELO", "JCB", "JCREW", "MADA", "MAESTRO", "MEEZA"];
+
+    $requestObjArr = [
+            "targetOrigins" => ["http://localhost:8000"],
+            "clientVersion" => "v2",
+            "allowedCardNetworks" => $allowedCardNetworks,
+            "allowedPaymentTypes" => ["CARD"]
+    ];
+    $requestObj = new CyberSource\Model\GenerateCaptureContextRequest($requestObjArr);
+
 	$commonElement = new CyberSource\ExternalConfiguration();
 	$config = $commonElement->ConnectionHost();
 	$merchantConfig = $commonElement->merchantConfigObject();
 	$apiclient = new CyberSource\ApiClient($config, $merchantConfig);
-	$api_instance = new CyberSource\Api\KeyGenerationApi($apiclient);
-	$flexRequestArr = [
-	"encryptionType" => "RsaOaep256",
-	"targetOrigin" => "http://localhost:8000",
-	];
-	
-	$keyResponse = list($response, $statusCode, $httpHeader)=null;
+    $apiInstance = new CyberSource\Api\MicroformIntegrationApi($apiClient);
 	$captureContext = '';
-
+	$clientLibrary = '';
+	$clientLibraryIntegrity = '';
 	try {
-		// Generating Flex .11 capture context 
-		$keyResponse = $api_instance->generatePublicKey($format = 'JWT', $flexRequestArr);
-		//print_r($keyResponse);
-
-		//Extracting Capture context from KeyID in response
-		$captureContext = $keyResponse[0]["keyId"];
-		//print_r($captureContext);
-
-
-
+        $apiResponse = $apiInstance->generateCaptureContext($requestObj);
+		$captureContext = $apiResponse[0];
+		$decoded = json_decode(base64_decode(explode('.', $captureContext)[1]), true);
+		$clientLibrary = $decoded['ctx'][0]['data']['clientLibrary'];
+		$clientLibraryIntegrity =$decoded['ctx'][0]['data']['clientLibraryIntegrity'];
+        //return $apiResponse;
 	} catch (Cybersource\ApiException $e) {
 		print_r($e->getResponseBody());
         print_r($e->getMessage());
 	}
 
-    
 ?>

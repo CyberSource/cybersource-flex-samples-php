@@ -27,10 +27,10 @@ Flex Microform is a CyberSource-hosted HTML/JavaScript component that replaces t
 
 4. Run the web server
 ```bash
-php -S localhost:8000 -t php-microform
+php -S localhost:8000 router.php
 ```
 
-5. Navigate to http://localhost:8000/checkout.php to try the sample application
+5. Navigate to http://localhost:8000/checkout to try the sample application
 
 ## Tips
 

@@ -7,8 +7,8 @@ This repository provides simple examples demonstrating usage of the CyberSource 
 1. Clone or download this repository.
 2. Update ExternalConfiguration.php with your [CyberSource sandbox credentials](https://ebc2test.cybersource.com). 
 3. Run ```composer update``` to pull down dependencies such as the CyberSource REST Client for PHP
-4. Run ```php -S localhost:8000 -t php-microform``` (or -t php-flexjs)to run the built-in PHP web server
-5. Browse to http://localhost:8000/checkout.php in your browser
+4. Run ```php -S localhost:8000 router.php``` to run the built-in PHP web server
+5. Browse to http://localhost:8000/checkout in your browser
 
 ## Requirements
 * PHP 5.4 or later
