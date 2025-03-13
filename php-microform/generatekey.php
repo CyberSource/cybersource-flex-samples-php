@@ -16,7 +16,7 @@
 	$commonElement = new CyberSource\ExternalConfiguration();
 	$config = $commonElement->ConnectionHost();
 	$merchantConfig = $commonElement->merchantConfigObject();
-	$apiclient = new CyberSource\ApiClient($config, $merchantConfig);
+	$apiClient = new CyberSource\ApiClient($config, $merchantConfig);
     $apiInstance = new CyberSource\Api\MicroformIntegrationApi($apiClient);
 	$captureContext = '';
 	$clientLibrary = '';
