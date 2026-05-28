@@ -12,7 +12,31 @@
             }
         </style>
     </head>
-    <?php $arrDump = json_decode($_POST["flexresponse"], true); ?>
+    <?php 
+    session_start();
+    
+    // Validate that checkout session exists
+    if (!isset($_SESSION['checkout_session_id'])) {
+        http_response_code(401);
+        die('Unauthorized: No active checkout session');
+    }
+    
+    // Decode and validate token
+    if (empty($_POST['flexresponse'])) {
+        http_response_code(400);
+        die('Missing payment token');
+    }
+    
+    $arrDump = json_decode($_POST["flexresponse"], true);
+    
+    // Store token in session for verification on receipt page
+    $_SESSION['expected_token'] = $arrDump;
+    
+    // Generate CSRF token if not exists
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    ?>
     <body>
         <div class="container card">
             <div class="card-body">
@@ -28,8 +52,8 @@
                         <tbody>
                             <tr scope="row">
                                 <td>Transient Token</td>
-                                <td>
-                                <?php echo $arrDump; ?>
+                                <td class="td-1">
+                                <?php echo json_encode($arrDump, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -37,6 +61,7 @@
 
                     <button type="button" id="pay-button" class="btn btn-primary">Make a Payment with Transient Token</button>
                     <input type="hidden" id="flexresponse" name="flexresponse">
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 </form>
             </div>
         </div>
@@ -47,7 +72,7 @@
 
             payButton.addEventListener('click', function() {  
                   
-                  var token = '<?php echo $arrDump; ?>' ;
+                  var token = <?php echo json_encode($arrDump, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?> ;
                   console.log(JSON.stringify(token));
                   flexResponse.value = JSON.stringify(token);
                   form.submit();
