@@ -61,13 +61,14 @@ $transientTokenJWK = $transientToken;
 
 	try {
 		$apiResponse = $api_instance->createPayment($requestObj);
-		//print_r(PHP_EOL);
-		//print_r($apiResponse);
-
-
 	} catch (Cybersource\ApiException $e) {
-		print_r($e->getResponseBody());
-		print_r($e->getMessage());
+		// Log error server-side
+		$responseBody = is_object($e->getResponseBody()) ? json_encode($e->getResponseBody()) : $e->getResponseBody();
+		error_log('Payment API Error - Status: ' . $e->getCode() . ' | Message: ' . $e->getMessage() . ' | Response: ' . $responseBody);
+		
+		// Display generic error to user
+		http_response_code(400);
+		die('Payment processing failed. Please contact support if the problem persists.');
 	}
 
 ?>

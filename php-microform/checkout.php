@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Initialize checkout session
+if (empty($_SESSION['checkout_session_id'])) {
+    $_SESSION['checkout_session_id'] = bin2hex(random_bytes(16));
+}
+
 //header("Content-Security-Policy: script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script';");
 include 'generatekey.php';
 
